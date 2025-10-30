@@ -47,7 +47,7 @@ class html implements renderable, templatable {
         $data = $DB->get_record('local_aicontentquestiongenerator', ['cmid' => $this->cmid]);
 
         if (!$data) {
-            return [];
+            return ['hascontent' => false];
         }
 
         $data = json_decode($data->questions, true);
@@ -55,6 +55,8 @@ class html implements renderable, templatable {
         foreach ($data['questoes'] as $key => $questao) {
             $data['questoes'][$key]['key'] = $key;
         }
+
+        $data['hascontent'] = true;
 
         return $data;
     }
